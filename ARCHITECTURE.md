@@ -474,7 +474,7 @@ lrcfilter/
 │   ├── test_instrumental.py
 │   └── test_mismatch.py
 ├── requirements.txt
-├── setup.py
+├── pyproject.toml
 ├── README.md
 └── ARCHITECTURE.md          # This file
 ```
