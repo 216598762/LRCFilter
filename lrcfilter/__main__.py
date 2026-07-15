@@ -6,6 +6,9 @@ from pathlib import Path
 
 from lrcfilter.pipeline import run_pipeline, print_summary, PipelineConfig
 from lrcfilter.config import DEFAULT_MODEL, DEFAULT_DEVICE, DEFAULT_COMPUTE_TYPE
+from lrcfilter.logging_config import setup_logging, get_logger
+
+logger = get_logger(__name__)
 
 
 def parse_args() -> argparse.Namespace:
@@ -64,19 +67,22 @@ def parse_args() -> argparse.Namespace:
 
 def progress_callback(current: int, total: int, filename: str) -> None:
     """Progress callback for the pipeline."""
-    print(f"[{current}/{total}] Processing: {filename}")
+    logger.info(f"[{current}/{total}] Processing: {filename}")
 
 
 def main() -> None:
     """Main entry point for the CLI."""
     args = parse_args()
 
+    # Configure logging
+    setup_logging(verbose=args.verbose)
+
     if not args.directory.exists():
-        print(f"Error: Directory '{args.directory}' does not exist.", file=sys.stderr)
+        logger.error(f"Directory '{args.directory}' does not exist.")
         sys.exit(1)
 
     if not args.directory.is_dir():
-        print(f"Error: '{args.directory}' is not a directory.", file=sys.stderr)
+        logger.error(f"'{args.directory}' is not a directory.")
         sys.exit(1)
 
     # Create pipeline config
@@ -89,7 +95,7 @@ def main() -> None:
         verbose=args.verbose,
     )
 
-    print(f"Scanning {args.directory} for audio files...")
+    logger.info(f"Scanning {args.directory} for audio files...")
 
     # Run the pipeline
     result = run_pipeline(

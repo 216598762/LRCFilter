@@ -6,6 +6,9 @@ from typing import List, Set
 
 from lrcfilter.config import SUPPORTED_FORMATS
 from lrcfilter.models import AudioFile
+from lrcfilter.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def scan_audio_files(directory: Path) -> List[AudioFile]:
@@ -38,7 +41,7 @@ def scan_audio_files(directory: Path) -> List[AudioFile]:
         try:
             entries = list(current_dir.iterdir())
         except (OSError, PermissionError) as e:
-            print(f"Warning: Could not access {current_dir}: {e}")
+            logger.warning(f"Could not access {current_dir}: {e}")
             return
         
         for entry in entries:
@@ -64,7 +67,7 @@ def scan_audio_files(directory: Path) -> List[AudioFile]:
                         )
                         audio_files.append(audio_file)
                     except (OSError, PermissionError) as e:
-                        print(f"Warning: Could not access {entry}: {e}")
+                        logger.warning(f"Could not access {entry}: {e}")
                         continue
     
     _scan_recursive(directory)

@@ -11,6 +11,9 @@ from lrcfilter.models import (
     InstrumentalResult,
     MismatchResult,
 )
+from lrcfilter.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def write_results(
@@ -70,7 +73,7 @@ def _write_censored_file(
             f.write(f"  # Confidence: {result.confidence:.1%}\n")
             f.write("\n")
     
-    print(f"  Written {len(tracks)} censored tracks to {output_path}")
+    logger.info(f"Written {len(tracks)} censored tracks to {output_path}")
 
 
 def _write_instrumental_file(
@@ -101,7 +104,7 @@ def _write_instrumental_file(
             f.write(f"  # Confidence: {result.confidence:.1%}\n")
             f.write("\n")
     
-    print(f"  Written {len(tracks)} instrumental tracks to {output_path}")
+    logger.info(f"Written {len(tracks)} instrumental tracks to {output_path}")
 
 
 def _write_mismatch_file(
@@ -132,4 +135,4 @@ def _write_mismatch_file(
             f.write(f"  # Confidence: {result.confidence:.1%}\n")
             f.write("---\n")
     
-    print(f"  Written {len(tracks)} metadata mismatches to {output_path}")
+    logger.info(f"Written {len(tracks)} metadata mismatches to {output_path}")

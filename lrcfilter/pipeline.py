@@ -22,6 +22,9 @@ from lrcfilter.models import (
     InstrumentalResult,
     MismatchResult,
 )
+from lrcfilter.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -183,8 +186,7 @@ def run_pipeline(
                 metadata_mismatches.append((audio_file, result.mismatch))
                 
         except Exception as e:
-            if config.verbose:
-                print(f"Error processing {audio_file.filename}: {e}")
+            logger.error(f"Error processing {audio_file.filename}: {e}")
             continue
     
     # Create pipeline result
@@ -215,12 +217,12 @@ def print_summary(result: PipelineResult) -> None:
     Args:
         result: PipelineResult to summarize
     """
-    print("\n" + "=" * 50)
-    print("Analysis Summary")
-    print("=" * 50)
-    print(f"  Total files scanned: {result.total_files}")
-    print(f"  Files processed: {result.processed_files}")
-    print(f"  Censored/non-explicit: {len(result.censored_tracks)}")
-    print(f"  Instrumental: {len(result.instrumental_tracks)}")
-    print(f"  Metadata mismatches: {len(result.metadata_mismatches)}")
-    print("=" * 50)
+    logger.info("=" * 50)
+    logger.info("Analysis Summary")
+    logger.info("=" * 50)
+    logger.info(f"  Total files scanned: {result.total_files}")
+    logger.info(f"  Files processed: {result.processed_files}")
+    logger.info(f"  Censored/non-explicit: {len(result.censored_tracks)}")
+    logger.info(f"  Instrumental: {len(result.instrumental_tracks)}")
+    logger.info(f"  Metadata mismatches: {len(result.metadata_mismatches)}")
+    logger.info("=" * 50)

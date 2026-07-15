@@ -8,6 +8,9 @@ import requests
 
 from lrcfilter.config import LRCLIB_BASE_URL, GENIUS_TOKEN_ENV, API_RATE_LIMIT_DELAY
 from lrcfilter.models import TrackMetadata, LyricsResult
+from lrcfilter.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 # Optional Genius import
 try:
@@ -102,7 +105,7 @@ def _fetch_from_lrclib(metadata: TrackMetadata) -> Optional[LyricsResult]:
         )
         
     except Exception as e:
-        print(f"Warning: LRCLib fetch failed: {e}")
+        logger.warning(f"LRCLib fetch failed: {e}")
         return None
     finally:
         time.sleep(API_RATE_LIMIT_DELAY)
@@ -147,7 +150,7 @@ def _fetch_from_genius(
         )
         
     except Exception as e:
-        print(f"Warning: Genius fetch failed: {e}")
+        logger.warning(f"Genius fetch failed: {e}")
         return None
     finally:
         time.sleep(API_RATE_LIMIT_DELAY)

@@ -7,6 +7,9 @@ from faster_whisper import WhisperModel
 
 from lrcfilter.models import AudioFile, TranscriptionResult, Segment, Word
 from lrcfilter.config import DEFAULT_MODEL, DEFAULT_DEVICE, DEFAULT_COMPUTE_TYPE
+from lrcfilter.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 # Thread-safe model cache
@@ -36,16 +39,16 @@ def get_model(
     if cache_key not in _model_cache:
         with _model_cache_lock:
             if cache_key not in _model_cache:
-                print(f"Loading Whisper model '{model_name}' on {device}...")
+                logger.info(f"Loading Whisper model '{model_name}' on {device}...")
                 try:
                     _model_cache[cache_key] = WhisperModel(
                         model_name,
                         device=device,
                         compute_type=compute_type,
                     )
-                    print("Model loaded.")
+                    logger.info("Model loaded successfully.")
                 except Exception as e:
-                    print(f"Error loading model: {e}")
+                    logger.error(f"Error loading model: {e}")
                     raise
     
     return _model_cache[cache_key]

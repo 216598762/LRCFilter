@@ -10,6 +10,9 @@ from mutagen.oggvorbis import OggVorbis
 from mutagen.mp4 import MP4
 
 from lrcfilter.models import AudioFile, TrackMetadata
+from lrcfilter.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def extract_metadata(audio_file: AudioFile) -> TrackMetadata:
@@ -60,7 +63,7 @@ def extract_metadata(audio_file: AudioFile) -> TrackMetadata:
         )
         
     except Exception as e:
-        print(f"Warning: Error extracting metadata from {audio_file.path}: {e}")
+        logger.warning(f"Error extracting metadata from {audio_file.path}: {e}")
         return _create_empty_metadata(audio_file)
 
 
