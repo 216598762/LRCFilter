@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  lrcfilter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lrcfilter:latest
+    container_name: lrcfilter
+    volumes:
+      # Mount your music directory (read-only)
+      - ${MUSIC_DIR:-./music}:/music:ro
+      # Mount output directory (read-write)
+      - ${OUTPUT_DIR:-./output}:/output
+    working_dir: /output
+    # Uncomment the deploy section below for GPU support (requires nvidia-docker)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]

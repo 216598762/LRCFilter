@@ -279,6 +279,41 @@ for track in result.track_results:
         print(f"Mismatch: {track.audio_file.filename}")
 ```
 
+## Docker
+
+### Using Docker
+
+```bash
+# Build the image
+docker build -t lrcfilter .
+
+# Run with your music directory
+# Linux/macOS
+docker run --rm -v ~/Music:/music:ro -v ./output:/output lrcfilter /music -o /output
+
+# Windows
+docker run --rm -v C:/Users/You/Music:/music:ro -v ./output:/output lrcfilter /music -o /output
+```
+
+### Using Docker Compose
+
+```bash
+# Edit docker-compose.yml to set your music directory
+# Then run:
+docker-compose run lrcfilter /music -o /output
+
+# For GPU support (requires nvidia-docker):
+# Uncomment the deploy section in docker-compose.yml
+docker-compose --profile gpu run lrcfilter /music -o /output
+```
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|--------|
+| `MUSIC_DIR` | Path to music directory | `./music` |
+| `OUTPUT_DIR` | Path to output directory | `./output` |
+
 ## Troubleshooting
 
 ### CUDA Out of Memory
