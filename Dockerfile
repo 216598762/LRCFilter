@@ -4,10 +4,9 @@ FROM python:3.11-slim as builder
 
 WORKDIR /app
 
-# Install system dependencies
+# Install build dependencies (ffmpeg not needed here - only for runtime)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy only requirements first for better caching
