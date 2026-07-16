@@ -73,7 +73,7 @@ def scan_audio_files(directory: Path, formats: Optional[set[str]] = None) -> lis
 
             if entry.is_dir():
                 _scan_recursive(entry)
-            elif entry.is_file(follow_symlinks=False):
+            elif entry.is_file():
                 extension = entry.suffix.lower()
 
                 if extension in (formats if formats is not None else SUPPORTED_FORMATS):

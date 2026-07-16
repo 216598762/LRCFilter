@@ -6,6 +6,8 @@ Note: All tests mock MutagenFile instead of using real audio files because:
 - Mocking MutagenFile provides reliable, deterministic tests
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 from typing import Any
 from unittest.mock import MagicMock, patch
