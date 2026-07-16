@@ -1,13 +1,20 @@
 """File scanner module for discovering audio files."""
 
+import os
 from pathlib import Path
-from typing import List, Optional, Set
+from typing import Callable, List, Optional, Set
 
 from lrcfilter.config import SUPPORTED_FORMATS
 from lrcfilter.models import AudioFile
 from lrcfilter.logging_config import get_logger
 
 logger = get_logger(__name__)
+
+# Module-level stat function reference for testability
+def _default_stat(path: str, *, follow_symlinks: bool = True) -> os.stat_result:
+    return os.stat(path, follow_symlinks=follow_symlinks)
+
+_stat_fn: Callable[..., os.stat_result] = _default_stat
 
 
 def scan_audio_files(directory: Path, formats: Optional[Set[str]] = None) -> List[AudioFile]:
@@ -42,7 +49,7 @@ def scan_audio_files(directory: Path, formats: Optional[Set[str]] = None) -> Lis
         
         try:
             # Get inode to detect symlink loops
-            dir_stat = current_dir.stat(follow_symlinks=False)
+            dir_stat = _stat_fn(str(current_dir), follow_symlinks=False)
             dir_inode = dir_stat.st_ino
             
             if dir_inode in visited_inodes:
@@ -62,14 +69,14 @@ def scan_audio_files(directory: Path, formats: Optional[Set[str]] = None) -> Lis
             if entry.name.startswith('.'):
                 continue
             
-            if entry.is_dir(follow_symlinks=False):
+            if entry.is_dir():
                 _scan_recursive(entry)
             elif entry.is_file(follow_symlinks=False):
                 extension = entry.suffix.lower()
                 
                 if extension in (formats if formats is not None else SUPPORTED_FORMATS):
                     try:
-                        size_bytes = entry.stat().st_size
+                        size_bytes = _stat_fn(str(entry)).st_size
                         size_mb = size_bytes / (1024 * 1024)
                         
                         audio_file = AudioFile(
