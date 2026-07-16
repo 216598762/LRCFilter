@@ -150,7 +150,7 @@ exclude_lines = [
 python_version = "3.10"
 
 # Exclude numpy stubs that use Python 3.12+ syntax
-exclude = ["\.venv/lib/python.*/site-packages/numpy/"]
+exclude = ["\\.venv/lib/python.*/site-packages/numpy/"]
 
 # Strictness
 warn_return_any = true
