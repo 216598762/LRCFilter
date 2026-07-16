@@ -1,0 +1,49 @@
+# Coverage configuration for lrcfilter
+# https://coverage.readthedocs.io/en/latest/config.html
+
+[run]
+# Measure coverage on the lrcfilter package
+source = lrcfilter
+
+# Omit test files and configuration from coverage measurement
+omit =
+    tests/*
+
+# Use branch coverage for more thorough analysis
+branch = true
+
+# Parallel mode for combining coverage from multiple runs
+parallel = true
+
+[report]
+# Patterns of lines to exclude from coverage
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if __name__ == .__main__
+    raise NotImplementedError
+    @overload
+
+# Fail under this percentage
+fail_under = 90
+
+# Show missing lines in report
+show_missing = true
+
+# Precision of coverage percentages
+precision = 2
+
+[html]
+# HTML output directory
+directory = htmlcov
+
+# Title for the HTML report
+title = lrcfilter Coverage Report
+
+[xml]
+# XML output file
+output = coverage.xml
+
+[json]
+# JSON output file
+output = coverage.json

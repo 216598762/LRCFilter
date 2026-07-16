@@ -12,6 +12,13 @@ updates:
       - "security"
     commit-message:
       prefix: "chore(deps)"
+    versioning-strategy: increase
+    ignore:
+      # lyricsgenius 3.x requires Python 3.11+ (uses from typing import Self)
+      - dependency-name: "lyricsgenius"
+        update-types: ["version-update:semver-major"]
+      # Ignore pre-release versions across all dependencies
+      - update-types: ["version-update:semver-pre-release"]
     groups:
       python-deps:
         patterns:
@@ -29,6 +36,9 @@ updates:
       - "ci"
     commit-message:
       prefix: "chore(ci)"
+    ignore:
+      # Ignore pre-release versions for GitHub Actions
+      - update-types: ["version-update:semver-pre-release"]
     groups:
       github-actions:
         patterns:
@@ -46,3 +56,7 @@ updates:
       - "docker"
     commit-message:
       prefix: "chore(docker)"
+    groups:
+      docker-deps:
+        patterns:
+          - "*"

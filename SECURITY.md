@@ -9,7 +9,7 @@ If you discover a security vulnerability within LRCFilter, please send an email 
 ## Reporting Process
 
 1. **Preferred Method**: Use [GitHub Security Advisories](https://github.com/216598762/lrcfilter/security/advisories/new)
-2. **Alternative**: Email **security@lrcfilter.dev**
+2. **Alternative**: Email **216598762@proton.me**
 3. **Subject Line**: Use `[SECURITY] Brief Description`
 
 ## What to Include
@@ -77,7 +77,7 @@ gh pr list --label dependencies
 ## Contact
 
 For security inquiries, please contact:
-- Email: **security@lrcfilter.dev**
+- Email: **216598762@proton.me**
 - GitHub Security Advisories: [Create Advisory](https://github.com/216598762/lrcfilter/security/advisories/new)
 
 ---
