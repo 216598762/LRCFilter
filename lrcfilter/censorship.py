@@ -1,7 +1,6 @@
 """Censorship detection module for identifying censored or explicit content."""
 
 import re
-from typing import List, Tuple
 
 from rapidfuzz import fuzz
 

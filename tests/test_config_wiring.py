@@ -3,7 +3,6 @@
 import pytest
 from pathlib import Path
 from unittest.mock import patch, MagicMock
-from dataclasses import dataclass
 
 from lrcfilter.pipeline import process_single_track, run_pipeline, PipelineConfig
 from lrcfilter.models import (

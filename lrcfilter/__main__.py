@@ -3,7 +3,6 @@
 import argparse
 import sys
 from pathlib import Path
-from typing import List
 
 from lrcfilter.pipeline import run_pipeline, print_summary, PipelineConfig
 from lrcfilter.config import (

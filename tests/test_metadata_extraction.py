@@ -1,13 +1,18 @@
-"""Tests for metadata extraction module."""
+"""Tests for metadata extraction module.
+
+Note: All tests mock MutagenFile instead of using real audio files because:
+- Creating valid MP3 files requires ffmpeg which may not be available
+- pydub (alternative) depends on audioop which is removed in Python 3.13+
+- Mocking MutagenFile provides reliable, deterministic tests
+"""
 
 from pathlib import Path
 from typing import Any
 from unittest.mock import MagicMock, patch
 
-import pytest
 
 from lrcfilter.metadata import extract_metadata, _get_tag_value, _create_empty_metadata
-from lrcfilter.models import AudioFile, TrackMetadata
+from lrcfilter.models import AudioFile
 
 
 # ---------------------------------------------------------------------------
@@ -87,6 +92,13 @@ class TestCreateEmptyMetadata:
         assert result.duration_seconds is None
         assert result.raw_tags == {}
 
+
+# ---------------------------------------------------------------------------
+# NOTE: Integration tests with real audio files would require:
+# - ffmpeg installed in the test environment, OR
+# - pydub with audioop compatibility (not available in Python 3.13+)
+# These would test the full MutagenFile parsing pipeline end-to-end.
+# ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
 # Tests for extract_metadata using mocked MutagenFile

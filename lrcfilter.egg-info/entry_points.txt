@@ -1,0 +1,2 @@
+[console_scripts]
+lrcfilter = lrcfilter.__main__:main

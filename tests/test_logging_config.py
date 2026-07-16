@@ -3,9 +3,7 @@
 import logging
 import sys
 from pathlib import Path
-from typing import Optional
 
-import pytest
 
 from lrcfilter.logging_config import setup_logging, get_logger
 

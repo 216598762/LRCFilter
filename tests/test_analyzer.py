@@ -1,12 +1,12 @@
 """Tests for analyzer module to improve coverage from 27%."""
 
 from pathlib import Path
-from unittest.mock import patch, MagicMock, PropertyMock
+from unittest.mock import patch, MagicMock
 
 import pytest
 
-from lrcfilter.analyzer import get_model, analyze_audio, _model_cache, _model_cache_lock
-from lrcfilter.models import AudioFile, TranscriptionResult, Segment, Word
+from lrcfilter.analyzer import get_model, analyze_audio, _model_cache
+from lrcfilter.models import AudioFile, TranscriptionResult
 from lrcfilter.config import DEFAULT_MODEL, DEFAULT_DEVICE, DEFAULT_COMPUTE_TYPE
 
 

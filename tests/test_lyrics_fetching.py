@@ -1,7 +1,6 @@
 """Tests for lyrics fetching module to improve coverage."""
 
 import os
-from pathlib import Path
 from unittest.mock import patch, MagicMock
 
 import pytest

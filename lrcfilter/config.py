@@ -1,6 +1,5 @@
 """Configuration constants for LRCFilter."""
 
-from pathlib import Path
 
 # Supported audio formats
 SUPPORTED_FORMATS = {".flac", ".mp3", ".m4a", ".ogg", ".opus"}

@@ -1,10 +1,8 @@
 """Tests for CLI entry point module."""
 
-import sys
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
-import pytest
 
 from lrcfilter.__main__ import parse_args, main, progress_callback
 

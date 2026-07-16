@@ -103,8 +103,7 @@ ignore = [
 # Allow autofix for all enabled rules
 fixable = ["ALL"]
 
-# Allow unused variables when prefixed with _
-unused-variables-ignore-underscore-start = true
+# Allow unused variables when prefixed with _ (handled by F841 ignore per-file)
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]

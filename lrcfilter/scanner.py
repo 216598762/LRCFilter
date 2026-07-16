@@ -1,6 +1,5 @@
 """File scanner module for discovering audio files."""
 
-import os
 from pathlib import Path
 from typing import List, Optional, Set
 

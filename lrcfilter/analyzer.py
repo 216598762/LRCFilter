@@ -1,7 +1,6 @@
 """Whisper analyzer module for audio transcription."""
 
 import threading
-from typing import Optional
 
 from faster_whisper import WhisperModel
 

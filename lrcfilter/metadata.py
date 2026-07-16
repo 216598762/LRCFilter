@@ -1,13 +1,8 @@
 """Metadata extraction module for audio files."""
 
 from typing import Optional, Dict, Any
-from pathlib import Path
 
 from mutagen import File as MutagenFile
-from mutagen.id3 import ID3, TIT2, TPE1, TALB
-from mutagen.flac import FLAC
-from mutagen.oggvorbis import OggVorbis
-from mutagen.mp4 import MP4
 
 from lrcfilter.models import AudioFile, TrackMetadata
 from lrcfilter.logging_config import get_logger
