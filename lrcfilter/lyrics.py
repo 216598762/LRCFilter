@@ -13,11 +13,12 @@ from lrcfilter.logging_config import get_logger
 logger = get_logger(__name__)
 
 # Optional Genius import
+GENIUS_AVAILABLE = False
 try:
     import lyricsgenius
     GENIUS_AVAILABLE = True
 except ImportError:
-    GENIUS_AVAILABLE = False
+    pass
 
 
 def fetch_lyrics(

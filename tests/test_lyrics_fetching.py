@@ -396,3 +396,36 @@ class TestCalculateMatchScore:
         }
         score = _calculate_match_score(metadata, lrclib_result)
         assert score == 0.0
+
+    def test_partial_artist_match(self) -> None:
+        """Should return 0.75 for partial artist match (substring)."""
+        metadata = TrackMetadata(title="Test Song", artist="Beatles", album=None, duration_seconds=None)
+        lrclib_result = {
+            "trackName": "Test Song",
+            "artistName": "The Beatles",
+        }
+        score = _calculate_match_score(metadata, lrclib_result)
+        assert score == 0.75  # 1.0 title + 0.5 artist / 2.0
+
+    def test_both_partial_matches(self) -> None:
+        """Should return 0.5 for both partial title and artist matches."""
+        metadata = TrackMetadata(title="Song", artist="Beatles", album=None, duration_seconds=None)
+        lrclib_result = {
+            "trackName": "Test Song",
+            "artistName": "The Beatles",
+        }
+        score = _calculate_match_score(metadata, lrclib_result)
+        assert score == 0.5  # 0.5 title + 0.5 artist / 2.0
+
+
+class TestFetchLyricsNoGenius:
+    """Test fetch_lyrics when Genius is not available (covers branch 83->85)."""
+
+    def test_no_genius_fallback_when_unavailable(self) -> None:
+        """Should skip Genius fallback when GENIUS_AVAILABLE is False."""
+        metadata = TrackMetadata(title="Song", artist="Artist", album=None, duration_seconds=None)
+
+        with patch("lrcfilter.lyrics._fetch_from_lrclib", return_value=None), \
+             patch("lrcfilter.lyrics.GENIUS_AVAILABLE", False):
+            result = fetch_lyrics(metadata)
+            assert result is None
