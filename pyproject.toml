@@ -149,6 +149,9 @@ exclude_lines = [
 # Target Python 3.10+
 python_version = "3.10"
 
+# Exclude numpy stubs that use Python 3.12+ syntax
+exclude = ["\.venv/lib/python.*/site-packages/numpy/"]
+
 # Strictness
 warn_return_any = true
 warn_unused_configs = true
@@ -177,10 +180,7 @@ module = [
 ]
 ignore_missing_imports = true
 
-# numpy stubs use Python 3.12+ syntax that crashes mypy targeting 3.10
-[[tool.mypy.overrides]]
-module = "numpy.*"
-follow_imports = "skip"
+
 
 # Test files can be more lenient
 [[tool.mypy.overrides]]
