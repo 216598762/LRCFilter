@@ -6,23 +6,22 @@ from unittest.mock import patch
 
 import pytest
 
+from lrcfilter.models import (
+    AudioFile,
+    LyricsResult,
+    Segment,
+    TrackMetadata,
+    TranscriptionResult,
+    Word,
+)
 from lrcfilter.pipeline import (
     PipelineConfig,
     PipelineResult,
     TrackResult,
-    run_pipeline,
-    process_single_track,
     print_summary,
+    process_single_track,
+    run_pipeline,
 )
-from lrcfilter.models import (
-    AudioFile,
-    TrackMetadata,
-    LyricsResult,
-    TranscriptionResult,
-    Segment,
-    Word,
-)
-
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -206,7 +205,7 @@ class TestPipelineCleanContent:
         lyrics = _make_lyrics(plain_lyrics=matching_text)
         transcription = _make_transcription(matching_text)
 
-        result = _run_mocked_pipeline(audio_files, config, lyrics=lyrics, transcription=transcription)
+        _run_mocked_pipeline(audio_files, config, lyrics=lyrics, transcription=transcription)
 
         # No result files should be written for clean tracks
         assert not (output_dir / "censored.txt").exists()
@@ -298,10 +297,9 @@ class TestPipelineCensoredContent:
 
     def test_censored_with_prefix(self, tmp_audio_dir: Path, output_dir: Path) -> None:
         audio_files = [_make_audio_file(tmp_audio_dir / "censored_song.mp3")]
-        config = PipelineConfig(output_dir=output_dir)
 
-        from lrcfilter.output import write_results
         from lrcfilter.censorship import detect_censorship
+        from lrcfilter.output import write_results
 
         lyrics = _make_lyrics(plain_lyrics="Clean")
         transcription = _make_transcription(
@@ -562,9 +560,7 @@ class TestPipelineMultipleTracks:
         def track_progress(current: int, total: int, filename: str) -> None:
             progress_calls.append((current, total, filename))
 
-        result = _run_mocked_pipeline(
-            audio_files, config, progress_callback=track_progress
-        )
+        _run_mocked_pipeline(audio_files, config, progress_callback=track_progress)
 
         assert len(progress_calls) == 1
         assert progress_calls[0] == (1, 1, "clean_song.mp3")

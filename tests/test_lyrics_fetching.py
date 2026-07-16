@@ -1,17 +1,17 @@
 """Tests for lyrics fetching module to improve coverage."""
 
 import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 
 from lrcfilter.lyrics import (
-    fetch_lyrics,
-    _fetch_from_lrclib,
-    _fetch_from_genius,
     _calculate_match_score,
+    _fetch_from_genius,
+    _fetch_from_lrclib,
+    fetch_lyrics,
 )
-from lrcfilter.models import TrackMetadata, LyricsResult
+from lrcfilter.models import LyricsResult, TrackMetadata
 
 
 class TestFetchLyrics:
@@ -33,7 +33,7 @@ class TestFetchLyrics:
         """Should skip Genius fallback when lrclib_only is True."""
         metadata = TrackMetadata(title="Song", artist="Artist", album=None, duration_seconds=None)
 
-        with patch("lrcfilter.lyrics._fetch_from_lrclib", return_value=None) as mock_lrclib, \
+        with patch("lrcfilter.lyrics._fetch_from_lrclib", return_value=None), \
              patch("lrcfilter.lyrics._fetch_from_genius") as mock_genius:
             result = fetch_lyrics(metadata, lrclib_only=True)
             assert result is None
@@ -236,7 +236,7 @@ class TestFetchFromLrclib:
         """Should sleep for the specified API delay."""
         metadata = TrackMetadata(title="Test Song", artist="Test Artist", album=None, duration_seconds=None)
 
-        with patch("lrcfilter.lyrics.requests.get", return_value=MagicMock(status_code=200, json=lambda: [])), \
+        with patch("lrcfilter.lyrics.requests.get", return_value=MagicMock(status_code=200, json=list)), \
              patch("lrcfilter.lyrics.time.sleep") as mock_sleep:
             _fetch_from_lrclib(metadata, api_delay=1.5)
             mock_sleep.assert_called_with(1.5)

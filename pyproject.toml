@@ -98,6 +98,7 @@ ignore = [
     "B008",   # Do not perform function calls in argument defaults
     "SIM108", # Use ternary operator
     "ERA001", # Allow commented-out code (may be useful for TODOs)
+    "RUF003", # Ambiguous EN DASH in comments (cosmetic)
 ]
 
 # Allow autofix for all enabled rules
