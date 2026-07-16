@@ -37,6 +37,7 @@ dev = [
     "pytest-cov>=4.0.0",
     "ruff>=0.5.0",
     "pre-commit>=3.0.0",
+    "mypy>=1.10.0",
 ]
 
 [project.scripts]
@@ -143,3 +144,41 @@ exclude_lines = [
     "if __name__ == .__main__.",
     "raise NotImplementedError",
 ]
+
+[tool.mypy]
+# Target Python 3.9+
+python_version = "3.9"
+
+# Strictness
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_no_return = true
+check_untyped_defs = true
+disallow_untyped_defs = false  # Start lenient, tighten over time
+disallow_incomplete_defs = false
+
+# Output
+show_error_codes = true
+pretty = true
+
+# Coverage
+follow_imports = "normal"
+ignore_missing_imports = false
+
+# Third-party libraries without type stubs
+[[tool.mypy.overrides]]
+module = [
+    "faster_whisper.*",
+    "lyricsgenius.*",
+    "better_profanity.*",
+    "rapidfuzz.*",
+]
+ignore_missing_imports = true
+
+# Test files can be more lenient
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+check_untyped_defs = true
