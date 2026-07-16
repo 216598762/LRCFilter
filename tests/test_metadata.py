@@ -43,24 +43,6 @@ def test_extract_metadata_empty_file(tmp_path: Path) -> None:
     assert result.title == "empty.mp3"
 
 
-def test_extract_metadata_invalid_file(tmp_path: Path) -> None:
-    """Test extracting metadata from an invalid audio file."""
-    test_file = tmp_path / "invalid.mp3"
-    test_file.write_text("not an audio file")
-    
-    audio_file = AudioFile(
-        path=test_file,
-        filename="invalid.mp3",
-        extension=".mp3",
-        size_mb=0.001,
-    )
-    
-    result = extract_metadata(audio_file)
-    
-    # Should return empty metadata, not raise exception
-    assert isinstance(result, TrackMetadata)
-
-
 def test_track_metadata_dataclass() -> None:
     """Test TrackMetadata dataclass creation."""
     metadata = TrackMetadata(

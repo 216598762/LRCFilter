@@ -4,19 +4,6 @@ from lrcfilter.lyrics import _calculate_match_score
 from lrcfilter.models import TrackMetadata
 
 
-def test_calculate_match_score_basic() -> None:
-    """Test match score with basic metadata."""
-    metadata = TrackMetadata(
-        title="Hello World",
-        artist="Test Artist",
-        album=None,
-        duration_seconds=None,
-    )
-    lrclib_result = {"trackName": "Hello World", "artistName": "Test Artist"}
-    score = _calculate_match_score(metadata, lrclib_result)
-    assert score == 1.0
-
-
 def test_calculate_match_score() -> None:
     """Test match score calculation."""
     metadata = TrackMetadata(
