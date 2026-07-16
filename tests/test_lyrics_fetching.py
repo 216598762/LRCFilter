@@ -316,7 +316,7 @@ class TestFetchFromGenius:
 
         with (
             patch("lrcfilter.lyrics.GENIUS_AVAILABLE", True),
-            patch("lrcfilter.lyrics.lyricsgenius.Genius", return_value=mock_genius),
+            patch("lyricsgenius.Genius", return_value=mock_genius),
             patch("lrcfilter.lyrics.time.sleep"),
         ):
             result = _fetch_from_genius(metadata, "test_token", api_delay=0)
@@ -335,7 +335,7 @@ class TestFetchFromGenius:
 
         with (
             patch("lrcfilter.lyrics.GENIUS_AVAILABLE", True),
-            patch("lrcfilter.lyrics.lyricsgenius.Genius", return_value=mock_genius),
+            patch("lyricsgenius.Genius", return_value=mock_genius),
             patch("lrcfilter.lyrics.time.sleep"),
         ):
             result = _fetch_from_genius(metadata, "test_token", api_delay=0)
@@ -355,7 +355,7 @@ class TestFetchFromGenius:
 
         with (
             patch("lrcfilter.lyrics.GENIUS_AVAILABLE", True),
-            patch("lrcfilter.lyrics.lyricsgenius.Genius", return_value=mock_genius),
+            patch("lyricsgenius.Genius", return_value=mock_genius),
             patch("lrcfilter.lyrics.time.sleep"),
         ):
             result = _fetch_from_genius(metadata, "test_token", api_delay=0)
@@ -369,7 +369,7 @@ class TestFetchFromGenius:
 
         with (
             patch("lrcfilter.lyrics.GENIUS_AVAILABLE", True),
-            patch("lrcfilter.lyrics.lyricsgenius.Genius", side_effect=Exception("API error")),
+            patch("lyricsgenius.Genius", side_effect=Exception("API error")),
             patch("lrcfilter.lyrics.time.sleep"),
         ):
             result = _fetch_from_genius(metadata, "test_token", api_delay=0)
@@ -386,7 +386,7 @@ class TestFetchFromGenius:
 
         with (
             patch("lrcfilter.lyrics.GENIUS_AVAILABLE", True),
-            patch("lrcfilter.lyrics.lyricsgenius.Genius", return_value=mock_genius),
+            patch("lyricsgenius.Genius", return_value=mock_genius),
             patch("lrcfilter.lyrics.time.sleep"),
         ):
             _fetch_from_genius(metadata, "test_token", api_delay=0)
